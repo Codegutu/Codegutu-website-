@@ -34,25 +34,27 @@ const allLinks = document.querySelectorAll("a:link");
 
 allLinks.forEach(function (link) {
   link.addEventListener("click", function (e) {
-    e.preventDefault();
     const href = link.getAttribute("href");
 
-    // Scroll back to top
-    if (href === "#")
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+    // Only intercept internal hash links (e.g. "#section" or "#")
+    if (href && (href === "#" || href.startsWith("#"))) {
+      e.preventDefault();
 
-    // Scroll to other links
-    if (href !== "#" && href.startsWith("#")) {
-      const sectionEl = document.querySelector(href);
-      sectionEl.scrollIntoView({ behavior: "smooth" });
+      // Scroll back to top
+      if (href === "#") window.scrollTo({ top: 0, behavior: "smooth" });
+
+      // Scroll to other section links
+      if (href !== "#" && href.startsWith("#")) {
+        const sectionEl = document.querySelector(href);
+        if (sectionEl) sectionEl.scrollIntoView({ behavior: "smooth" });
+      }
+
+      // Close mobile navigation (when a main nav link is clicked)
+      if (link.classList.contains("main-nav-link"))
+        headerEl.classList.toggle("nav-open");
     }
 
-    // Close mobile naviagtion
-    if (link.classList.contains("main-nav-link"))
-      headerEl.classList.toggle("nav-open");
+    // For non-hash links (external pages, mailto, tel, etc.) we let the browser handle navigation normally
   });
 });
 
