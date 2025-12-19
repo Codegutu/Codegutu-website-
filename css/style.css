@@ -18,6 +18,15 @@
   height: 2.2rem;
 }
 
+/* Ensure the header logo link doesn't get default underline/color so the H1 styles apply */
+.header > a:link,
+.header > a:visited {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  font-size: 2.4rem;
+}
+
 /**************************/
 /* NAVIGATION */
 /**************************/
@@ -109,6 +118,13 @@
 .section-hero {
   background-color: #ffffff;
   padding: 4.8rem 0 9.6rem 0;
+}
+
+.Heading-logo {
+  font-weight: 800;
+  font-size: 2rem;
+  text-decoration: none;
+  text-transform: capitalize;
 }
 
 .hero {
